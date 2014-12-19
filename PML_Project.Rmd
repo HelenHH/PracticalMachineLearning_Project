@@ -1,6 +1,8 @@
 ---
 title: "Human Activity Recognition Project"
-output: html_document
+output: 
+  html_document:
+    keep_md: true
 ---
 
 ###Introduction
@@ -55,11 +57,12 @@ Read in data and convert 'blank' or '#DIV/0!' to NA for the subsequent removal.
 train<-read.csv("/Users/zhihuang/desktop/PML_Project1/pml-training.csv", na.strings=c("NA","#DIV/0!", ""))
 test<-read.csv("/Users/zhihuang/desktop/PML_Project1/pml-testing.csv", na.strings=c("NA","#DIV/0!", ""))
 dim(train); dim(test)
+
 ```
 
 Remove columns with NA, and also the first 7 columns since they are inrelavent to this analysis.
 
-```{r, echo=TRUE}
+```{r, actual_class_plot, echo=TRUE}
 train.tidy <-train[, colSums(is.na(train)) == 0][-(1:7)]
 test.tidy <-test[, colSums(is.na(test)) == 0][-(1:7)]
 dim(train.tidy); dim(test.tidy)
@@ -105,7 +108,7 @@ confusionMatrix(testing_pred, testing$classe)
 
 ```
 
-```{r, echo=TRUE}
+```{r, confusion_plot, echo=TRUE}
 #Normalized confusion matrix in corss validation data set
 A <- matrix(c(0.998,0.012,0.000,0.000,0.000,0.002,0.985,0.007,0.000,0.000,0.000,0.003,0.993,0.016,.001,0.000,0.000,0.001,0.984,0.002,0.000,0.000,0.000,0.000,0.997), nrow=5, ncol=5, byrow = TRUE)       
 dimnames(A) = list(c("A", "B", "C", "D", "E"),c("A", "B", "C", "D", "E"))   
