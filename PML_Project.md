@@ -1,4 +1,9 @@
-# Human Activity Recognition Project
+---
+title: "Human Activity Recognition Project"
+output: 
+  html_document:
+    keep_md: true
+---
 
 ###Introduction
 
@@ -31,61 +36,10 @@ Data sets are downloaded from the course website, "pml-training.csv" data are us
 
 ```r
 library(caret)
-```
-
-```
-## Loading required package: lattice
-## Loading required package: ggplot2
-```
-
-```r
 library(randomForest)
-```
-
-```
-## randomForest 4.6-10
-## Type rfNews() to see new features/changes/bug fixes.
-```
-
-```r
 library(Hmisc)
-```
-
-```
-## Loading required package: grid
-## Loading required package: survival
-## Loading required package: splines
-## 
-## Attaching package: 'survival'
-## 
-## The following object is masked from 'package:caret':
-## 
-##     cluster
-## 
-## Loading required package: Formula
-## 
-## Attaching package: 'Hmisc'
-## 
-## The following object is masked from 'package:randomForest':
-## 
-##     combine
-## 
-## The following objects are masked from 'package:base':
-## 
-##     format.pval, round.POSIXt, trunc.POSIXt, units
-```
-
-```r
 library(foreach)
 library(doParallel)
-```
-
-```
-## Loading required package: iterators
-## Loading required package: parallel
-```
-
-```r
 library(parallel)
 ```
 
@@ -163,7 +117,7 @@ names(train.tidy)
 plot(train.tidy$classe,col= c("purple","red", "yellow", "blue", "orange"), main = "`Classe` Frequency Plot", xlab="Actual class")
 ```
 
-![](PML_Project_files/figure-html/actual_class_plot-1.png) 
+![plot of chunk actual_class_plot](assets/fig/actual_class_plot-1.png) 
 
 ####Model building
 
@@ -244,33 +198,33 @@ confusionMatrix(testing_pred, testing$classe)
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 2228   19    0    0    0
-##          B    4 1494    9    0    0
-##          C    0    5 1357   21    1
-##          D    0    0    2 1265    3
+##          A 2227   17    0    0    0
+##          B    4 1495    9    0    0
+##          C    0    6 1358   21    1
+##          D    1    0    1 1265    3
 ##          E    0    0    0    0 1438
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.9918          
-##                  95% CI : (0.9896, 0.9937)
+##                Accuracy : 0.992           
+##                  95% CI : (0.9897, 0.9938)
 ##     No Information Rate : 0.2845          
 ##     P-Value [Acc > NIR] : < 2.2e-16       
 ##                                           
-##                   Kappa : 0.9897          
+##                   Kappa : 0.9898          
 ##  Mcnemar's Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            0.9982   0.9842   0.9920   0.9837   0.9972
-## Specificity            0.9966   0.9979   0.9958   0.9992   1.0000
-## Pos Pred Value         0.9915   0.9914   0.9805   0.9961   1.0000
-## Neg Pred Value         0.9993   0.9962   0.9983   0.9968   0.9994
+## Sensitivity            0.9978   0.9848   0.9927   0.9837   0.9972
+## Specificity            0.9970   0.9979   0.9957   0.9992   1.0000
+## Pos Pred Value         0.9924   0.9914   0.9798   0.9961   1.0000
+## Neg Pred Value         0.9991   0.9964   0.9985   0.9968   0.9994
 ## Prevalence             0.2845   0.1935   0.1744   0.1639   0.1838
-## Detection Rate         0.2840   0.1904   0.1730   0.1612   0.1833
-## Detection Prevalence   0.2864   0.1921   0.1764   0.1619   0.1833
-## Balanced Accuracy      0.9974   0.9911   0.9939   0.9915   0.9986
+## Detection Rate         0.2838   0.1905   0.1731   0.1612   0.1833
+## Detection Prevalence   0.2860   0.1922   0.1767   0.1619   0.1833
+## Balanced Accuracy      0.9974   0.9914   0.9942   0.9915   0.9986
 ```
 
 
@@ -283,7 +237,7 @@ plot <- ggplot(confusion)
 plot + geom_tile(aes(x=Var1, y=Var2, fill=Freq)) + scale_x_discrete(name="Actual Class") + scale_y_discrete(name="Predicted Class") + scale_fill_gradient(breaks=seq(from=-.5, to=4, by=.2)) + labs(fill="Freq",title = "Normalized Confusion Matrix in Cross-Validataion")
 ```
 
-![](PML_Project_files/figure-html/confusion_plot-1.png) 
+![plot of chunk confusion_plot](assets/fig/confusion_plot-1.png) 
 
 
 The results show that the 'in-sample' accuracy of the model is 100% obtained from the training data; 'the-out-of sample' accuracy is around 99.2% from the cross-validation testing data, the 'out-of-sample error' is <1%. 
